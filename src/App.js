@@ -1,53 +1,42 @@
 import React, { Component } from "react";
+import ContactForm from "./components/ContactForm";
+import ContactList from "./components/ContactList ";
+
 import { nanoid } from "nanoid";
 
 export default class App extends Component {
   state = {
     contacts: [],
-    name: "",
   };
 
   nameInputId = nanoid();
 
-  handleChange = (e) => {
-    const { name, value } = e.target;
-    this.setState({
-      [name]: value,
-    });
+  addContact = (contact) => {
+    const contactToAdd = {
+      ...contact,
+      id: nanoid(),
+    };
+
+    this.setState((state) => ({
+      contacts: [...state.contacts, contactToAdd],
+    }));
   };
 
-  // handleSubmit = (e) => {
-  //   e.preventDefault();
-
-  //   this.props.onSignUp({ ...this.state });
-  //   this.reset();
-  // };
-
-  // reset = () => {
-  //   this.setState({
-  //     name: "",
-  //   });
-  // };
+  deleteContact = (id) => {
+    this.setState((state) => ({
+      contacts: state.contacts.filter((contact) => contact.id !== id),
+    }));
+  };
 
   render() {
-    const { name } = this.state;
+    const { contacts } = this.state;
     return (
-      <form onSubmit={this.handleSubmit}>
-        <label>
-          Name
-          <br />
-          <input
-            type="text"
-            value={name}
-            onChange={this.handleChange}
-            id={this.nameInputId}
-            name="name"
-            pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
-            title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
-            required
-          />
-        </label>
-      </form>
+      <div>
+        <h1>Phonebook</h1>
+        <ContactForm onAddContact={this.addContact} />
+        <h2>Contacts</h2>
+        <ContactList items={contacts} />
+      </div>
     );
   }
 }
