@@ -14,6 +14,7 @@ export default class ContactForm extends Component {
       [name]: value,
     });
   };
+  
 
   handleSubmit = (e) => {
     e.preventDefault();
