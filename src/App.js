@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import ContactForm from "./components/ContactForm";
-import ContactList from "./components/ContactList ";
-import Filter from "./components/Filter";
+import ContactForm from "./components/ContactForm/ContactForm";
+import ContactList from "./components/ContactList/ContactList";
+import Filter from "./components/Filter/Filter";
 
 import { nanoid } from "nanoid";
 
@@ -24,15 +24,22 @@ export default class App extends Component {
 
   nameInputId = nanoid();
 
-  addContact = (contact) => {
+  addContact = (contactName) => {
     const contactToAdd = {
-      ...contact,
+      ...contactName,
       id: nanoid(),
     };
 
-    this.setState((state) => ({
-      contacts: [...state.contacts, contactToAdd],
-    }));
+    const theSameContact = this.state.contacts.find(
+      (contact) => contact.name === contactName.name
+    );
+
+    if (theSameContact)
+      return alert(`${contactName.name}  is already in contacts.`);
+    else
+      this.setState((state) => ({
+        contacts: [...state.contacts, contactToAdd],
+      }));
   };
 
   deleteContact = (id) => {

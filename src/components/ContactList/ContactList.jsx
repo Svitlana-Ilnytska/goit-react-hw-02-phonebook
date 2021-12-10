@@ -1,11 +1,13 @@
 import React from "react";
 import PropTypes from "prop-types";
-import ContactItem from "./ContactItem";
+import ContactItem from "../ContactItem/ContactItem";
+
+import css from "./ContactList.module.css";
 
 const ContactList = ({ items, onDeleteContact }) => (
-  <ul>
+  <ul className={css.wrapList}>
     {items.map((item) => (
-      <li key={item.id}>
+      <li key={item.id} className={css.wrapItem}>
         <ContactItem
           {...item}
           onDeleteContact={() => onDeleteContact(item.id)}

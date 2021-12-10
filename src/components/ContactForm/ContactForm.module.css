@@ -1,3 +1,8 @@
+.form {
+    border: 1px solid;
+    width: 200px;
+    padding: 15px;
+}
 .wrapInput {
   margin-bottom: 15px;
   display: flex;
