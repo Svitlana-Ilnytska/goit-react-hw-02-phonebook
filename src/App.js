@@ -22,16 +22,14 @@ export default class App extends Component {
     filter: "",
   };
 
-  nameInputId = nanoid();
-
   addContact = (contactName) => {
     const contactToAdd = {
       ...contactName,
       id: nanoid(),
     };
 
-    const theSameContact = this.state.contacts.find(
-      (contact) => contact.name === contactName.name
+    const theSameContact = this.state.contacts.some((contact) =>
+      contact.name.toLowerCase().includes(contactName.name.toLowerCase())
     );
 
     if (theSameContact)
